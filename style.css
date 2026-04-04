@@ -1,0 +1,33 @@
+/* Scanner Container jahan cover image dikhegi */
+#reader {
+    width: 100% !important;
+    min-height: 350px;
+    background-color: #ffffff;
+    /* Finger emoji ko as a background use kiya hai */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="70">✋</text></svg>');
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px dashed #2563eb;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    /* Tapping Animation */
+    animation: tap-move 1.5s ease-in-out infinite;
+}
+
+/* Tapping Animation Definition */
+@keyframes tap-move {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9) translateY(10px); } /* Tap effect */
+}
+
+/* Button ka text change karne ke liye niche wala styling */
+#reader__dashboard_section_csr button {
+    background-color: #2563eb !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
