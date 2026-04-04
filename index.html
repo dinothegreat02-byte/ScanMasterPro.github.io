@@ -72,12 +72,6 @@
         let html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess);
 
-        // Name Change Fix: "TAP TO ON CAMERA 👆🏻"
-        setTimeout(() => {
-            let btn = document.querySelector("#reader__dashboard_section_csr button");
-            if(btn) btn.innerText = "TAP TO ON CAMERA 👆🏻";
-        }, 1000);
-
         // 2. Generator Setup
         function generateQR() {
             let input = document.getElementById("qr-input").value;
