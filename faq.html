@@ -1,68 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ - ScanMasterPro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ScanMasterPro</title>
+    <link rel="icon" type="image/png" href="favicon.png">
 
-<link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        /* ScanMasterPro Global Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-<style>
-body{
-font-family: Arial, sans-serif;
-max-width: 900px;
-margin: auto;
-padding: 20px;
-line-height: 1.7;
-color:#222;
-}
+        body {
+            background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
+            color: #e5e7eb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
+        }
 
-h1{
-color:#111;
-}
+        /* Container with Neon Border Effect */
+        .faq-card {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 3.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: containerFade 1s ease-out;
+        }
 
-.faq{
-margin-bottom:20px;
-}
+        @keyframes containerFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.question{
-font-weight:bold;
-font-size:18px;
-}
-</style>
+        /* Scanner Laser Effect Line */
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00ffcc, #0077ff, transparent);
+            box-shadow: 0 0 15px #00ffcc;
+            animation: scanMove 4s linear infinite;
+            border-radius: 24px;
+        }
+
+        @keyframes scanMove {
+            0% { top: 0%; opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Title styling */
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #a7f3d0 70%, #00ffcc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        /* Modern Accordion (FAQ) Styling */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Hide Default Checkbox */
+        .faq-toggle {
+            display: none;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Effect on Question Card */
+        .faq-item:hover {
+            border-color: rgba(0, 255, 204, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f3f4f6;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Neon Icon (+ / -) */
+        .faq-icon {
+            font-size: 1.4rem;
+            color: #00ffcc;
+            transition: transform 0.3s ease;
+            font-weight: 400;
+        }
+
+        /* Answer Section (Initially Hidden) */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            padding: 0 1.5rem;
+            color: #9ca3af;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* When Checkbox is Checked (Open State) */
+        .faq-toggle:checked ~ .faq-answer {
+            max-height: 300px; /* Bada answer bhi handle ho sake */
+            padding-bottom: 1.25rem;
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0), padding 0.3s ease;
+        }
+
+        .faq-toggle:checked ~ .faq-question {
+            color: #00ffcc;
+        }
+
+        .faq-toggle:checked ~ .faq-question .faq-icon {
+            transform: rotate(45deg); /* Turns + into an x/minus-like vibe smoothly */
+            color: #0077ff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .faq-card {
+                padding: 2.5rem 1.25rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .faq-question {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            .faq-answer {
+                font-size: 0.95rem;
+                padding: 0 1rem;
+            }
+            .faq-toggle:checked ~ .faq-answer {
+                padding-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<main>
+<main class="faq-card">
+    <!-- Scanner Laser Effect Line -->
+    <div class="scanner-line"></div>
 
-<h1>Frequently Asked Questions</h1>
+    <h1>Frequently Asked Questions</h1>
 
-<div class="faq">
-<div class="question">What is ScanMasterPro?</div>
-<p>ScanMasterPro is an online QR and document scanning platform that works directly in your browser.</p>
-</div>
+    <div class="faq-container">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+            <input type="checkbox" id="faq-1" class="faq-toggle">
+            <label for="faq-1" class="faq-question">
+                What is ScanMasterPro?
+                <span class="faq-icon">+</span>
+            </label>
+            <div class="faq-answer">
+                ScanMasterPro is an online QR and document scanning platform that works directly in your browser.
+            </div>
+        </div>
 
-<div class="faq">
-<div class="question">Is ScanMasterPro free to use?</div>
-<p>Yes, the platform is free to use.</p>
-</div>
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+            <input type="checkbox" id="faq-2" class="faq-toggle">
+            <label for="faq-2" class="faq-question">
+                Is ScanMasterPro free to use?
+                <span class="faq-icon">+</span>
+            </label>
+            <div class="faq-answer">
+                Yes, the platform is entirely free to use with no hidden charges.
+            </div>
+        </div>
 
-<div class="faq">
-<div class="question">Do I need to install any software?</div>
-<p>No, ScanMasterPro works directly in modern web browsers.</p>
-</div>
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+            <input type="checkbox" id="faq-3" class="faq-toggle">
+            <label for="faq-3" class="faq-question">
+                Do I need to install any software?
+                <span class="faq-icon">+</span>
+            </label>
+            <div class="faq-answer">
+                No, ScanMasterPro works directly in modern web browsers without requiring any complicated software or extension installations.
+            </div>
+        </div>
 
-<div class="faq">
-<div class="question">Can I use it on mobile devices?</div>
-<p>Yes, the website is mobile-friendly and works on smartphones and tablets.</p>
-</div>
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+            <input type="checkbox" id="faq-4" class="faq-toggle">
+            <label for="faq-4" class="faq-question">
+                Can I use it on mobile devices?
+                <span class="faq-icon">+</span>
+            </label>
+            <div class="faq-answer">
+                Yes, the website is fully mobile-friendly and optimized perfectly for smartphones and tablets.
+            </div>
+        </div>
 
-<div class="faq">
-<div class="question">Does ScanMasterPro store my scans?</div>
-<p>No, we focus on privacy and do not permanently store your scanned data.</p>
-</div>
-
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+            <input type="checkbox" id="faq-5" class="faq-toggle">
+            <label for="faq-5" class="faq-question">
+                Does ScanMasterPro store my scans?
+                <span class="faq-icon">+</span>
+            </label>
+            <div class="faq-answer">
+                No, we focus strictly on privacy. Your scanning processing happens locally, and we do not permanently store your scanned data on our servers.
+            </div>
+        </div>
+    </div>
 </main>
 
 </body>
